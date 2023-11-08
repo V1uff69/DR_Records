@@ -1,4 +1,5 @@
-﻿using DR_Records.Repos;
+﻿using DR_Records.Models;
+using DR_Records.Repos;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,16 +12,18 @@ namespace DR_Records.Controllers
     {
         private readonly RecordsRepos _repos;
 
-        public RecordsController(RecordsRepos recordsRepo)
+        public RecordsController(RecordsRepos Repos)
         {
-
+            _repos = Repos;
         }
 
         // GET: api/<RecordsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IEnumerable<Record> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _repos.GetAll();
         }
 
         // GET api/<RecordsController>/5
